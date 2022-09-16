@@ -1,0 +1,16 @@
+B 3 C o m p i l a t i o n
+B 80 Equation Listing    SOLVE transporteSal Using LP From line 70
+D 83 coste
+D 88 suministro
+D 97 demanda
+B 109 Column Listing      SOLVE transporteSal Using LP From line 70
+E 112 cantidad
+E 134 z
+B 142 Range Statistics    SOLVE transporteSal Using LP From line 70
+B 153 Model Statistics    SOLVE transporteSal Using LP From line 70
+B 166 Solution Report     SOLVE transporteSal Using LP From line 70
+F 199 coste
+F 203 suministro
+F 211 demanda
+G 225 cantidad
+G 259 z
