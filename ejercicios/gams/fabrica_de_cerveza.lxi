@@ -1,0 +1,18 @@
+B 3 C o m p i l a t i o n
+B 39 Equation Listing    SOLVE cerveza Using LP From line 29
+D 42 beneficio
+D 47 empleados
+D 52 presupuesto
+B 58 Column Listing      SOLVE cerveza Using LP From line 29
+E 61 rubia
+E 70 negra
+E 79 max
+B 87 Range Statistics    SOLVE cerveza Using LP From line 29
+B 98 Model Statistics    SOLVE cerveza Using LP From line 29
+B 111 Solution Report     SOLVE cerveza Using LP From line 29
+F 144 beneficio
+F 145 empleados
+F 146 presupuesto
+G 154 rubia
+G 155 negra
+G 156 max

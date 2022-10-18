@@ -9,8 +9,8 @@ E 134 z
 B 142 Range Statistics    SOLVE transporteSal Using LP From line 70
 B 153 Model Statistics    SOLVE transporteSal Using LP From line 70
 B 166 Solution Report     SOLVE transporteSal Using LP From line 70
-F 199 coste
-F 203 suministro
-F 211 demanda
-G 225 cantidad
-G 259 z
+F 203 coste
+F 207 suministro
+F 215 demanda
+G 229 cantidad
+G 263 z

@@ -1,9 +1,9 @@
 
---- Job PL_Transporte_DistribucionSal_new.gms Start 10/06/22 11:48:55 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
+--- Job explotacion_minera.gms Start 10/13/22 11:48:27 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
 --- Applying:
     /opt/GAMS/gams40.2_linux_x64_64_sfx/gmsprmun.txt
 --- GAMS Parameters defined
-    Input /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/PL_Transporte_DistribucionSal_new.gms
+    Input /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/explotacion_minera.gms
     PageSize 0
     ScrDir /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/225a/
     SysDir /opt/GAMS/gams40.2_linux_x64_64_sfx/
@@ -20,17 +20,17 @@ Licensee: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
 Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
 GAMS 40.2.0   Copyright (C) 1987-2022 GAMS Development. All rights reserved
 --- Starting compilation
---- PL_Transporte_DistribucionSal_new.gms(72) 3 Mb
---- Starting execution: elapsed 0:00:00.020
---- PL_Transporte_DistribucionSal_new.gms(67) 4 Mb
---- Generating LP model transporteSal
---- PL_Transporte_DistribucionSal_new.gms(70) 4 Mb
----   13 rows  28 columns  82 non-zeroes
+--- explotacion_minera.gms(50) 3 Mb
+--- Starting execution: elapsed 0:00:00.022
+--- explotacion_minera.gms(45) 4 Mb
+--- Generating LP model ExpMinera
+--- explotacion_minera.gms(48) 4 Mb
+---   4 rows  3 columns  9 non-zeroes
 --- Range statistics (absolute non-zero finite values)
---- RHS       [min, max] : [ 2.000E+00, 1.000E+01] - Zero values observed as well
+--- RHS       [min, max] : [ 8.000E+00, 1.200E+01] - Zero values observed as well
 --- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
---- Matrix    [min, max] : [ 1.000E+00, 7.000E+02]
---- Executing CPLEX (Solvelink=2): elapsed 0:00:00.021
+--- Matrix    [min, max] : [ 1.000E+00, 2.400E+01]
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:00.023
 
 IBM ILOG CPLEX   40.2.0 6cf3fb9c Sep 1, 2022           LEG x86 64bit/Linux    
 
@@ -54,29 +54,20 @@ CPXPARAM_MIP_Pool_Capacity                       0
 CPXPARAM_MIP_Tolerances_AbsMIPGap                0
 Tried aggregator 1 time.
 LP Presolve eliminated 0 rows and 1 columns.
-Reduced LP has 12 rows, 27 columns, and 54 nonzeros.
-Presolve time = 0.00 sec. (0.02 ticks)
+Reduced LP has 3 rows, 2 columns, and 6 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
 
 Iteration      Dual Objective            In Variable           Out Variable
-     1             800.000000          cantidad(1,1)       demanda(1) slack
-     2            1400.000000          cantidad(2,3)       demanda(3) slack
-     3            2450.000000          cantidad(2,2)       demanda(2) slack
-     4            3200.000000          cantidad(1,4)       demanda(4) slack
-     5            4400.000000          cantidad(2,5)       demanda(5) slack
-     6            4800.000000          cantidad(2,6)       demanda(6) slack
-     7            5200.000000          cantidad(3,7)       demanda(7) slack
-     8            5500.000000          cantidad(3,8)       demanda(8) slack
-     9            5900.000000          cantidad(3,9)       demanda(9) slack
-    10            5900.000000          cantidad(3,5)    suministro(2) slack
-    11            6000.000000          cantidad(1,2)    suministro(3) slack
+     1  I            0.000000      cantidad(lignito)   consumo(corte) slack
+     2              62.400000    cantidad(antracita)  consumo(lavado) slack
 
 --- LP status (1): optimal.
---- Cplex Time: 0.00sec (det. 0.04 ticks)
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
 
 
 Optimal solution found
-Objective:         6000.000000
+Objective:           62.400000
 
---- Reading solution for model transporteSal
+--- Reading solution for model ExpMinera
 *** Status: Normal completion
---- Job PL_Transporte_DistribucionSal_new.gms Stop 10/06/22 11:48:55 elapsed 0:00:00.054
+--- Job explotacion_minera.gms Stop 10/13/22 11:48:27 elapsed 0:00:00.060

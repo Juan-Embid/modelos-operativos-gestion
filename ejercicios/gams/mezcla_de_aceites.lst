@@ -1,0 +1,83 @@
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/06/22 11:24:44 Page 1
+Problema de la Mezcla de Aceites
+C o m p i l a t i o n
+
+
+   2   
+      Problema de las diapositivas del tema 2 parte 1
+   6   
+   7  Sets
+   8      aceites / 'VEG1','VEG2','OIL1','OIL2','OIL3' /
+   9      vege(aceites) aceites vegetales / 'VEG1','VEG2' /
+  10      mine(aceites) aceites minerales / 'OIL1','OIL2','OIL3' /;
+  11   
+  12  Parameters
+  13      coste(aceites) coste de cada aceite
+  14          / VEG1 110
+  15            VEG2 120
+  16            OIL1 130
+  17            OIL2 110
+  18            OIL3 115 /
+  19   
+  20  *porque se separa con comas y no como el coste(aceites)
+  21      dureza(aceites) dureza de cada aceite
+  22          / VEG1 8.8, VEG2 6.1, OIL1 2.0, OIL2 4.2, OIL3 5.0 /;
+  23   
+  24  Scalars
+  25      dureza_min dureza minima aceite / 3 /
+  26      dureza_max dureza maxima aceite / 6 /
+  27      precio_venta precio de venta del aceite / 150 /
+  28      refino_vege max Tn aceite vegetal / 200 /
+  29      refino_mine max Tn aceite mineral / 250 /;
+  30   
+  31   
+  32  Variables
+  33      cantidad(minerales) 'toneladas producidas de cada mineral'
+****                       $120
+**** 120  Unknown identifier entered as set
+  34      be 'beneficio obtenido'
+  35   
+  36  Positive Variables cantidad;
+  37   
+  38  Equations
+  39      benef 'calculo del beneficio'
+  40      consumo(recursos) 'limite en el uso de cada recurso';
+****                     $120
+**** 120  Unknown identifier entered as set
+  41   
+  42  * de que manera se usa el sum, porque lo multiplica a cantidad(minerales)
+  43  benef.. be =e= sum(minerales, b(minerales)*cantidad(minerales));
+****                                $140
+**** 140  Unknown symbol
+  44  * porque pone el =l= en el lado derecho
+  45  consumo(recursos).. sum(minerales, c(recursos, minerales)*cantidad(minerales)) =l= r(recursos);
+****                                     $140                                            $140
+**** 140  Unknown symbol
+  46   
+  47  Model ExpMinera / all /;
+  48   
+  49  *OPTION LP=CPLEX;
+  50   
+  51  * porque maximizig be
+  52  solve ExpMinera using lp maximizing be;
+****                                        $257
+**** 257  Solve statement not checked because of previous errors
+  53   
+  54  *display rubia, morena;
+
+**** 6 ERROR(S)   0 WARNING(S)
+
+
+COMPILATION TIME     =        0.001 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+
+
+USER: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
+      Universidad Complutense de Madrid, Spain                 DL073690
+
+
+**** FILE SUMMARY
+
+Input      /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.gms
+Output     /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.lst
+
+**** USER ERROR(S) ENCOUNTERED

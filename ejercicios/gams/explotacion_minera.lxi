@@ -1,0 +1,14 @@
+B 3 C o m p i l a t i o n
+B 58 Equation Listing    SOLVE ExpMinera Using LP From line 48
+D 61 benef
+D 66 consumo
+B 76 Column Listing      SOLVE ExpMinera Using LP From line 48
+E 79 cantidad
+E 96 be
+B 104 Range Statistics    SOLVE ExpMinera Using LP From line 48
+B 115 Model Statistics    SOLVE ExpMinera Using LP From line 48
+B 128 Solution Report     SOLVE ExpMinera Using LP From line 48
+F 165 benef
+F 169 consumo
+G 177 cantidad
+G 186 be

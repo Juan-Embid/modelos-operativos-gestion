@@ -1,0 +1,238 @@
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 1
+Problema de la Empresa de Aqua Scooter
+C o m p i l a t i o n
+
+
+      Problema evaluable
+       
+      La empresa Aqua-Scooter se dedica al montaje de motos naúticas de 125 cv y de 50 cv en versiones monoplaza y biplaza.
+      Posee una planta que está estructurada en cuatro departamentos: fabricación de motor, pintura, montaje y el departamento
+      de control de calidad. Las horas de mano de obra que necesita cada uno de los modelos de moto en los diferentes
+      departamentos son los siguientes:
+       
+      Modelo  Motor   Pintura Montaje C. Calidad
+      125-bi  6   9   12  5
+      125-m   4   8   10  4
+      50-bi   2   5   8   2
+      50-m    1   4   7   1
+      El departamento de fabricaciónn de motor dispone de 17 trabajadores, el de pintura de 19, el de montaje de 8 y el
+      control de calidad, de 16. Todos los trabajadores realizan una jornada laboral de 8 horas.
+       
+      Si el margen de beneficio de cada uno de los modelos es de 1070, 920, 860 y 650 euros, respectivamente, crear un modelo
+      de optimización lineal que permita encontrar la combinación de motos naúticas a producir para el que el beneficio sea máximo.
+  21   
+  22  Sets
+  23      moto modelos de las motos nauticas / 125bi, 125m, 50bi, 50m /
+  24      departamentos planta estructurada en 4 departamentos / motor, pintura, montaje, calidad /;
+  25   
+  26  Table h(moto, departamentos) 'horas de mano de obra que necesita cada modelo en los distintos departamentos'
+  27          motor pintura montaje calidad
+  28  125bi    6      9       12      5
+  29  125m     4      8       10      4
+  30  50bi     2      5       8       2
+  31  50m      1      4       7       1;
+  32   
+  33  Parameters
+  34      t(departamentos) 'trabajadores por departamento'
+  35          / motor   17
+  36            pintura 19
+  37            montaje 8
+  38            calidad 16/
+  39   
+  40      b(moto) 'beneficio de cada uno de los modelos'
+  41          / 125bi 1070
+  42            125m  920
+  43            50bi  860
+  44            50m   650/;
+  45   
+  46  Variables
+  47      cantidad(moto) 'motos producidas de cada modelo'
+  48      be 'beneficio obtenido'
+  49   
+  50  Positive Variables cantidad;
+  51   
+  52  Equations
+  53      benef 'calculo del beneficio'
+  54      manoObra(departamentos) 'limite en el uso de cada recurso';
+  55   
+  56  benef.. be =e= sum(moto, b(moto)*cantidad(moto));
+  57  manoObra(departamentos).. sum(moto, h(moto, departamentos)*cantidad(moto)) =l= t(departamentos);
+  58   
+  59  Model aquaScooter / all /;
+  60   
+  61  OPTION LP=CPLEX;
+  62   
+  63  aquaScooter.OPTFILE=1;
+  64   
+  65  * porque maximizig be
+  66  solve aquaScooter using lp maximizing be;
+
+
+COMPILATION TIME     =        0.001 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 2
+Problema de la Empresa de Aqua Scooter
+Equation Listing    SOLVE aquaScooter Using LP From line 66
+
+
+---- benef  =E=  calculo del beneficio
+
+benef..  - 1070*cantidad(125bi) - 920*cantidad(125m) - 860*cantidad(50bi) - 650*cantidad(50m) + be =E= 0 ; (LHS = 0)
+     
+
+---- manoObra  =L=  limite en el uso de cada recurso
+
+manoObra(motor)..  6*cantidad(125bi) + 4*cantidad(125m) + 2*cantidad(50bi) + cantidad(50m) =L= 17 ; (LHS = 0)
+     
+manoObra(pintura)..  9*cantidad(125bi) + 8*cantidad(125m) + 5*cantidad(50bi) + 4*cantidad(50m) =L= 19 ; (LHS = 0)
+     
+manoObra(montaje)..  12*cantidad(125bi) + 10*cantidad(125m) + 8*cantidad(50bi) + 7*cantidad(50m) =L= 8 ; (LHS = 0)
+     
+REMAINING ENTRY SKIPPED
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 3
+Problema de la Empresa de Aqua Scooter
+Column Listing      SOLVE aquaScooter Using LP From line 66
+
+
+---- cantidad  motos producidas de cada modelo
+
+cantidad(125bi)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+    -1070       benef
+        6       manoObra(motor)
+        9       manoObra(pintura)
+       12       manoObra(montaje)
+        5       manoObra(calidad)
+
+cantidad(125m)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -920       benef
+        4       manoObra(motor)
+        8       manoObra(pintura)
+       10       manoObra(montaje)
+        4       manoObra(calidad)
+
+cantidad(50bi)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -860       benef
+        2       manoObra(motor)
+        5       manoObra(pintura)
+        8       manoObra(montaje)
+        2       manoObra(calidad)
+
+REMAINING ENTRY SKIPPED
+
+---- be  beneficio obtenido
+
+be
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       benef
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 4
+Problema de la Empresa de Aqua Scooter
+Range Statistics    SOLVE aquaScooter Using LP From line 66
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 8.000E+00, 1.900E+01] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 1.070E+03]
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 5
+Problema de la Empresa de Aqua Scooter
+Model Statistics    SOLVE aquaScooter Using LP From line 66
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            5
+NON ZERO ELEMENTS            21
+
+
+GENERATION TIME      =        0.002 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 6
+Problema de la Empresa de Aqua Scooter
+Solution Report     SOLVE aquaScooter Using LP From line 66
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   aquaScooter         OBJECTIVE  be
+     TYPE    LP                  DIRECTION  MAXIMIZE
+     SOLVER  CPLEX               FROM LINE  66
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE              860.0000
+
+ RESOURCE USAGE, LIMIT          0.005 10000000000.000
+ ITERATION COUNT, LIMIT         1    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+
+*** Error Cannot open parameter file "/home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/cplex.opt"
+*** Error Error code = 2; No such file or directory
+
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Optimal solution found
+Objective:          860.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU benef               .              .              .             1.0000      
+
+  benef  calculo del beneficio
+
+---- EQU manoObra  limite en el uso de cada recurso
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+motor          -INF            2.0000        17.0000          .          
+pintura        -INF            5.0000        19.0000          .          
+montaje        -INF            8.0000         8.0000       107.5000      
+calidad        -INF            2.0000        16.0000          .          
+
+---- VAR cantidad  motos producidas de cada modelo
+
+             LOWER          LEVEL          UPPER         MARGINAL
+
+125bi          .              .            +INF         -220.0000      
+125m           .              .            +INF         -155.0000      
+50bi           .             1.0000        +INF             .          
+50m            .              .            +INF         -102.5000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR be                -INF          860.0000        +INF             .          
+
+  be  beneficio obtenido
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+
+
+EXECUTION TIME       =        0.014 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
+
+
+USER: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
+      Universidad Complutense de Madrid, Spain                 DL073690
+
+
+**** FILE SUMMARY
+
+Input      /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/aqua-scooter.gms
+Output     /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/aqua-scooter.lst

@@ -1,0 +1,18 @@
+B 3 C o m p i l a t i o n
+B 31 Equation Listing    SOLVE PetBF Using LP From line 20
+D 34 obj
+D 39 PTA
+D 44 EtG
+B 50 Column Listing      SOLVE PetBF Using LP From line 20
+E 53 botella
+E 62 fibra
+E 71 z
+B 79 Range Statistics    SOLVE PetBF Using LP From line 20
+B 90 Model Statistics    SOLVE PetBF Using LP From line 20
+B 103 Solution Report     SOLVE PetBF Using LP From line 20
+F 140 obj
+F 141 PTA
+F 142 EtG
+G 146 botella
+G 147 fibra
+G 148 z

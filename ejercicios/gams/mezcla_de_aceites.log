@@ -1,0 +1,41 @@
+--- Job mezcla_de_aceites.gms Start 10/06/22 11:24:44 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
+--- Applying:
+    /opt/GAMS/gams40.2_linux_x64_64_sfx/gmsprmun.txt
+--- GAMS Parameters defined
+    Input /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.gms
+    PageSize 0
+    ScrDir /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/225a/
+    SysDir /opt/GAMS/gams40.2_linux_x64_64_sfx/
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+Licensee: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
+          Universidad Complutense de Madrid, Spain                 DL073690
+          /opt/GAMS/gams40.2_linux_x64_64_sfx/gamslice.txt
+          jembid@ucm.es, Juan Embid                                        
+          Demo license for demonstration and instructional purposes only
+Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
+GAMS 40.2.0   Copyright (C) 1987-2022 GAMS Development. All rights reserved
+--- Starting compilation
+--- mezcla_de_aceites.gms(33) 3 Mb 1 Error
+*** Error 120 in /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.gms
+    Unknown identifier entered as set
+--- mezcla_de_aceites.gms(40) 3 Mb 2 Errors
+*** Error 120 in /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.gms
+    Unknown identifier entered as set
+--- mezcla_de_aceites.gms(43) 3 Mb 3 Errors
+*** Error 140 in /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.gms
+    Unknown symbol
+--- mezcla_de_aceites.gms(45) 3 Mb 5 Errors
+*** Error 140 in /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.gms
+    Unknown symbol
+*** Error 140 in /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.gms
+    Unknown symbol
+--- mezcla_de_aceites.gms(52) 3 Mb 6 Errors
+*** Error 257 in /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/mezcla_de_aceites.gms
+    Solve statement not checked because of previous errors
+--- mezcla_de_aceites.gms(54) 3 Mb 6 Errors
+*** Status: Compilation error(s)
+--- Job mezcla_de_aceites.gms Stop 10/06/22 11:24:44 elapsed 0:00:00.022

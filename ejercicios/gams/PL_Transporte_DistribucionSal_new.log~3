@@ -1,5 +1,5 @@
 
---- Job PL_Transporte_DistribucionSal_new.gms Start 10/06/22 11:48:55 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
+--- Job PL_Transporte_DistribucionSal_new.gms Start 10/06/22 11:48:21 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
 --- Applying:
     /opt/GAMS/gams40.2_linux_x64_64_sfx/gmsprmun.txt
 --- GAMS Parameters defined
@@ -21,7 +21,7 @@ Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
 GAMS 40.2.0   Copyright (C) 1987-2022 GAMS Development. All rights reserved
 --- Starting compilation
 --- PL_Transporte_DistribucionSal_new.gms(72) 3 Mb
---- Starting execution: elapsed 0:00:00.020
+--- Starting execution: elapsed 0:00:00.021
 --- PL_Transporte_DistribucionSal_new.gms(67) 4 Mb
 --- Generating LP model transporteSal
 --- PL_Transporte_DistribucionSal_new.gms(70) 4 Mb
@@ -30,7 +30,7 @@ GAMS 40.2.0   Copyright (C) 1987-2022 GAMS Development. All rights reserved
 --- RHS       [min, max] : [ 2.000E+00, 1.000E+01] - Zero values observed as well
 --- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
 --- Matrix    [min, max] : [ 1.000E+00, 7.000E+02]
---- Executing CPLEX (Solvelink=2): elapsed 0:00:00.021
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:00.023
 
 IBM ILOG CPLEX   40.2.0 6cf3fb9c Sep 1, 2022           LEG x86 64bit/Linux    
 
@@ -62,13 +62,13 @@ Iteration      Dual Objective            In Variable           Out Variable
      2            1400.000000          cantidad(2,3)       demanda(3) slack
      3            2450.000000          cantidad(2,2)       demanda(2) slack
      4            3200.000000          cantidad(1,4)       demanda(4) slack
-     5            4400.000000          cantidad(2,5)       demanda(5) slack
-     6            4800.000000          cantidad(2,6)       demanda(6) slack
-     7            5200.000000          cantidad(3,7)       demanda(7) slack
-     8            5500.000000          cantidad(3,8)       demanda(8) slack
-     9            5900.000000          cantidad(3,9)       demanda(9) slack
-    10            5900.000000          cantidad(3,5)    suministro(2) slack
-    11            6000.000000          cantidad(1,2)    suministro(3) slack
+     5            4250.000000          cantidad(3,5)       demanda(5) slack
+     6            4650.000000          cantidad(2,6)       demanda(6) slack
+     7            5050.000000          cantidad(3,7)       demanda(7) slack
+     8            5350.000000          cantidad(3,8)       demanda(8) slack
+     9            5750.000000          cantidad(3,9)       demanda(9) slack
+    10            5900.000000          cantidad(2,5)    suministro(3) slack
+    11            6000.000000          cantidad(1,2)    suministro(2) slack
 
 --- LP status (1): optimal.
 --- Cplex Time: 0.00sec (det. 0.04 ticks)
@@ -79,4 +79,4 @@ Objective:         6000.000000
 
 --- Reading solution for model transporteSal
 *** Status: Normal completion
---- Job PL_Transporte_DistribucionSal_new.gms Stop 10/06/22 11:48:55 elapsed 0:00:00.054
+--- Job PL_Transporte_DistribucionSal_new.gms Stop 10/06/22 11:48:21 elapsed 0:00:00.061

@@ -1,0 +1,206 @@
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/13/22 11:48:27 Page 1
+Problema de la Explotacion Minera
+C o m p i l a t i o n
+
+
+   2   
+      Problema de las diapositivas del tema 2 parte 1
+   6   
+   7  Sets
+   8      minerales tipos de carbon / lignito, antracita /
+   9      recursos maquinaria utilizada / corte, tamizado, lavado /;
+  10   
+  11  Parameters
+  12      b(minerales) 'beneficio por la venta de una tonelada'
+  13          / lignito   24
+  14            antracita 18 /
+  15      r(recursos) 'limite de recursos disponibles (horas maquina)'
+  16          / corte    12
+  17            tamizado 10
+  18            lavado    8 /;
+  19   
+  20  Table c(recursos, minerales) 'horas maquina consumidas por cada unidad de carbon'
+  21          lignito antracita
+  22  corte       3       4
+  23  tamizado    3       3
+  24  lavado      4       2;
+  25   
+  26  Variables
+  27      cantidad(minerales) 'toneladas producidas de cada mineral'
+  28      be 'beneficio obtenido'
+  29   
+  30  Positive Variables cantidad;
+  31   
+  32  Equations
+  33      benef 'calculo del beneficio'
+  34      consumo(recursos) 'limite en el uso de cada recurso';
+  35   
+  36  * de que manera se usa el sum, porque lo multiplica a cantidad(minerales)
+  37  benef.. be =e= sum(minerales, b(minerales)*cantidad(minerales));
+  38  * porque pone el =l= en el lado derecho
+  39  consumo(recursos).. sum(minerales, c(recursos, minerales)*cantidad(minerales)) =l= r(recursos);
+  40   
+  41  Model ExpMinera / all /;
+  42   
+  43  OPTION LP=CPLEX;
+  44   
+  45  ExpMinera.OPTFILE=1;
+  46   
+  47  * porque maximizig be
+  48  solve ExpMinera using lp maximizing be;
+  49   
+  50  *display rubia, morena;
+
+
+COMPILATION TIME     =        0.001 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/13/22 11:48:27 Page 2
+Problema de la Explotacion Minera
+Equation Listing    SOLVE ExpMinera Using LP From line 48
+
+
+---- benef  =E=  calculo del beneficio
+
+benef..  - 24*cantidad(lignito) - 18*cantidad(antracita) + be =E= 0 ; (LHS = 0)
+     
+
+---- consumo  =L=  limite en el uso de cada recurso
+
+consumo(corte)..  3*cantidad(lignito) + 4*cantidad(antracita) =L= 12 ; (LHS = 0)
+     
+consumo(tamizado)..  3*cantidad(lignito) + 3*cantidad(antracita) =L= 10 ; (LHS = 0)
+     
+consumo(lavado)..  4*cantidad(lignito) + 2*cantidad(antracita) =L= 8 ; (LHS = 0)
+     
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/13/22 11:48:27 Page 3
+Problema de la Explotacion Minera
+Column Listing      SOLVE ExpMinera Using LP From line 48
+
+
+---- cantidad  toneladas producidas de cada mineral
+
+cantidad(lignito)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+      -24       benef
+        3       consumo(corte)
+        3       consumo(tamizado)
+        4       consumo(lavado)
+
+cantidad(antracita)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+      -18       benef
+        4       consumo(corte)
+        3       consumo(tamizado)
+        2       consumo(lavado)
+
+
+---- be  beneficio obtenido
+
+be
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       benef
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/13/22 11:48:27 Page 4
+Problema de la Explotacion Minera
+Range Statistics    SOLVE ExpMinera Using LP From line 48
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 8.000E+00, 1.200E+01] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 2.400E+01]
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/13/22 11:48:27 Page 5
+Problema de la Explotacion Minera
+Model Statistics    SOLVE ExpMinera Using LP From line 48
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS            4
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            3
+NON ZERO ELEMENTS             9
+
+
+GENERATION TIME      =        0.001 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/13/22 11:48:27 Page 6
+Problema de la Explotacion Minera
+Solution Report     SOLVE ExpMinera Using LP From line 48
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   ExpMinera           OBJECTIVE  be
+     TYPE    LP                  DIRECTION  MAXIMIZE
+     SOLVER  CPLEX               FROM LINE  48
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE               62.4000
+
+ RESOURCE USAGE, LIMIT          0.030 10000000000.000
+ ITERATION COUNT, LIMIT         2    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+
+*** Error Cannot open parameter file "/home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/cplex.opt"
+*** Error Error code = 2; No such file or directory
+
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Optimal solution found
+Objective:           62.400000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU benef               .              .              .             1.0000      
+
+  benef  calculo del beneficio
+
+---- EQU consumo  limite en el uso de cada recurso
+
+                LOWER          LEVEL          UPPER         MARGINAL
+
+corte           -INF           12.0000        12.0000         2.4000      
+tamizado        -INF            9.6000        10.0000          .          
+lavado          -INF            8.0000         8.0000         4.2000      
+
+---- VAR cantidad  toneladas producidas de cada mineral
+
+                 LOWER          LEVEL          UPPER         MARGINAL
+
+lignito            .             0.8000        +INF             .          
+antracita          .             2.4000        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR be                -INF           62.4000        +INF             .          
+
+  be  beneficio obtenido
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+
+
+EXECUTION TIME       =        0.038 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
+
+
+USER: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
+      Universidad Complutense de Madrid, Spain                 DL073690
+
+
+**** FILE SUMMARY
+
+Input      /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/explotacion_minera.gms
+Output     /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/explotacion_minera.lst

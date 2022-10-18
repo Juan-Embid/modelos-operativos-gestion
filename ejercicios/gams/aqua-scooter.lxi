@@ -1,0 +1,14 @@
+B 3 C o m p i l a t i o n
+B 74 Equation Listing    SOLVE aquaScooter Using LP From line 66
+D 77 benef
+D 82 manoObra
+B 94 Column Listing      SOLVE aquaScooter Using LP From line 66
+E 97 cantidad
+E 125 be
+B 133 Range Statistics    SOLVE aquaScooter Using LP From line 66
+B 144 Model Statistics    SOLVE aquaScooter Using LP From line 66
+B 157 Solution Report     SOLVE aquaScooter Using LP From line 66
+F 194 benef
+F 198 manoObra
+G 207 cantidad
+G 218 be

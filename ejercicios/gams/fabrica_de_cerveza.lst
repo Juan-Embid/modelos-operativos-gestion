@@ -1,0 +1,178 @@
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 09/16/22 14:36:40 Page 1
+Problema de la Fabrica de Cerveza
+C o m p i l a t i o n
+
+
+   2   
+      Problema de las diapositivas del tema 2 parte 1
+   6   
+   7  Variables
+   8     rubia litros de cerveza rubia en miles
+   9     negra litros de cerveza negra en miles
+  10     max maximo beneficio;
+  11   
+  12  Positive Variables rubia, negra;
+  13   
+  14  Equations
+  15     beneficio      'función objetivo',
+  16     empleados 'cantidad de empleados trabajando',
+  17     presupuesto 'presupuesto con el que trabajan';
+  18   
+  19  beneficio.. max =e= 100*rubia + 125*negra;
+  20   
+  21  empleados.. 3*rubia + 5*negra =l= 15;
+  22   
+  23  presupuesto.. 90*rubia + 85*negra =l= 350;
+  24   
+  25  Model cerveza / all /;
+  26   
+  27  *OPTION LP=CPLEX;
+  28   
+  29  solve cerveza using lp maximizing max;
+  30   
+  31  *display rubia, morena;
+
+
+COMPILATION TIME     =        0.000 SECONDS      2 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 09/16/22 14:36:40 Page 2
+Problema de la Fabrica de Cerveza
+Equation Listing    SOLVE cerveza Using LP From line 29
+
+
+---- beneficio  =E=  función objetivo
+
+beneficio..  - 100*rubia - 125*negra + max =E= 0 ; (LHS = 0)
+     
+
+---- empleados  =L=  cantidad de empleados trabajando
+
+empleados..  3*rubia + 5*negra =L= 15 ; (LHS = 0)
+     
+
+---- presupuesto  =L=  presupuesto con el que trabajan
+
+presupuesto..  90*rubia + 85*negra =L= 350 ; (LHS = 0)
+     
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 09/16/22 14:36:40 Page 3
+Problema de la Fabrica de Cerveza
+Column Listing      SOLVE cerveza Using LP From line 29
+
+
+---- rubia  litros de cerveza rubia en miles
+
+rubia
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -100       beneficio
+        3       empleados
+       90       presupuesto
+
+
+---- negra  litros de cerveza negra en miles
+
+negra
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -125       beneficio
+        5       empleados
+       85       presupuesto
+
+
+---- max  maximo beneficio
+
+max
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       beneficio
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 09/16/22 14:36:40 Page 4
+Problema de la Fabrica de Cerveza
+Range Statistics    SOLVE cerveza Using LP From line 29
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.500E+01, 3.500E+02] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 1.250E+02]
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 09/16/22 14:36:40 Page 5
+Problema de la Fabrica de Cerveza
+Model Statistics    SOLVE cerveza Using LP From line 29
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            3
+BLOCKS OF VARIABLES           3     SINGLE VARIABLES            3
+NON ZERO ELEMENTS             7
+
+
+GENERATION TIME      =        0.002 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 09/16/22 14:36:40 Page 6
+Problema de la Fabrica de Cerveza
+Solution Report     SOLVE cerveza Using LP From line 29
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   cerveza             OBJECTIVE  max
+     TYPE    LP                  DIRECTION  MAXIMIZE
+     SOLVER  CPLEX               FROM LINE  29
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE              435.8974
+
+ RESOURCE USAGE, LIMIT          0.006 10000000000.000
+ ITERATION COUNT, LIMIT         2    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.00 ticks)
+
+
+Optimal solution found
+Objective:          435.897436
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU beneficio           .              .              .             1.0000      
+---- EQU empleados         -INF           15.0000        15.0000        14.1026      
+---- EQU presupues~        -INF          350.0000       350.0000         0.6410      
+
+  beneficio  función objetivo
+  empleados  cantidad de empleados trabajando
+  presupuesto  presupuesto con el que trabajan
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR rubia               .             2.4359        +INF             .          
+---- VAR negra               .             1.5385        +INF             .          
+---- VAR max               -INF          435.8974        +INF             .          
+
+  rubia  litros de cerveza rubia en miles
+  negra  litros de cerveza negra en miles
+  max  maximo beneficio
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+
+
+EXECUTION TIME       =        0.015 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+
+
+USER: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
+      Universidad Complutense de Madrid, Spain                 DL073690
+
+
+**** FILE SUMMARY
+
+Input      /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/fabrica_de_cerveza.gms
+Output     /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/fabrica_de_cerveza.lst

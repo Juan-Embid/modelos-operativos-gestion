@@ -62,9 +62,9 @@ demanda(localidades).. sum(silos, cantidad(silos,localidades)) =g= dem(localidad
 
 Model transporteSal / all /;
 
-*OPTION LP=CPLEX;
+OPTION LP=CPLEX;
 
-*transporteSal.OPTFILE=1;
+transporteSal.OPTFILE=1;
 
 
 solve transporteSal using lp minimizing z;
