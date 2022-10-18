@@ -1,5 +1,5 @@
 
---- Job aqua-scooter.gms Start 10/18/22 13:27:44 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
+--- Job aqua-scooter.gms Start 10/18/22 20:45:24 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
 --- Applying:
     /opt/GAMS/gams40.2_linux_x64_64_sfx/gmsprmun.txt
 --- GAMS Parameters defined
@@ -20,17 +20,17 @@ Licensee: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
 Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
 GAMS 40.2.0   Copyright (C) 1987-2022 GAMS Development. All rights reserved
 --- Starting compilation
---- aqua-scooter.gms(50) 3 Mb
---- Starting execution: elapsed 0:00:00.023
---- aqua-scooter.gms(47) 4 Mb
+--- aqua-scooter.gms(66) 3 Mb
+--- Starting execution: elapsed 0:00:00.020
+--- aqua-scooter.gms(63) 4 Mb
 --- Generating LP model aquaScooter
---- aqua-scooter.gms(50) 4 Mb
+--- aqua-scooter.gms(66) 4 Mb
 ---   5 rows  5 columns  21 non-zeroes
 --- Range statistics (absolute non-zero finite values)
 --- RHS       [min, max] : [ 6.400E+01, 1.520E+02] - Zero values observed as well
 --- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
 --- Matrix    [min, max] : [ 1.000E+00, 1.070E+03]
---- Executing CPLEX (Solvelink=2): elapsed 0:00:00.028
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:00.022
 
 IBM ILOG CPLEX   40.2.0 6cf3fb9c Sep 1, 2022           LEG x86 64bit/Linux    
 
@@ -61,7 +61,7 @@ Iteration      Dual Objective            In Variable           Out Variable
      1 sI            0.000000         cantidad(50bi)manoObra(montaje) slack
 
 --- LP status (1): optimal.
---- Cplex Time: 0.01sec (det. 0.01 ticks)
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
 
 
 Optimal solution found
@@ -69,4 +69,4 @@ Objective:         6880.000000
 
 --- Reading solution for model aquaScooter
 *** Status: Normal completion
---- Job aqua-scooter.gms Stop 10/18/22 13:27:45 elapsed 0:00:00.069
+--- Job aqua-scooter.gms Stop 10/18/22 20:45:24 elapsed 0:00:00.058

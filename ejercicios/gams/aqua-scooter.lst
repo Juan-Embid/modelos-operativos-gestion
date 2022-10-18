@@ -1,77 +1,83 @@
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 1
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1   
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 2
 Problema de la Empresa de Aqua Scooter
 C o m p i l a t i o n
 
 
-      Problema evaluable
+       Problema evaluable
        
-      La empresa Aqua-Scooter se dedica al montaje de motos naúticas de 125 cv y de 50 cv en versiones monoplaza y biplaza.
-      Posee una planta que está estructurada en cuatro departamentos: fabricación de motor, pintura, montaje y el departamento
-      de control de calidad. Las horas de mano de obra que necesita cada uno de los modelos de moto en los diferentes
-      departamentos son los siguientes:
+       La empresa Aqua-Scooter se dedica al montaje de motos naúticas de 125 cv y de 50 cv en versiones monoplaza y biplaza.
+       Posee una planta que está estructurada en cuatro departamentos: fabricación de motor, pintura, montaje y el departamento
+       de control de calidad. Las horas de mano de obra que necesita cada uno de los modelos de moto en los diferentes
+       departamentos son los siguientes:
        
-      Modelo  Motor   Pintura Montaje C. Calidad
-      125-bi  6   9   12  5
-      125-m   4   8   10  4
-      50-bi   2   5   8   2
-      50-m    1   4   7   1
-      El departamento de fabricaciónn de motor dispone de 17 trabajadores, el de pintura de 19, el de montaje de 8 y el
-      control de calidad, de 16. Todos los trabajadores realizan una jornada laboral de 8 horas.
+       Modelo  Motor   Pintura Montaje C. Calidad
+       125-bi  6   9   12  5
+       125-m   4   8   10  4
+       50-bi   2   5   8   2
+       50-m    1   4   7   1
+       El departamento de fabricaciónn de motor dispone de 17 trabajadores, el de pintura de 19, el de montaje de 8 y el
+       control de calidad, de 16. Todos los trabajadores realizan una jornada laboral de 8 horas.
        
-      Si el margen de beneficio de cada uno de los modelos es de 1070, 920, 860 y 650 euros, respectivamente, crear un modelo
-      de optimización lineal que permita encontrar la combinación de motos naúticas a producir para el que el beneficio sea máximo.
-  21   
-  22  Sets
-  23      moto modelos de las motos nauticas / 125bi, 125m, 50bi, 50m /
-  24      departamentos planta estructurada en 4 departamentos / motor, pintura, montaje, calidad /;
-  25   
-  26  Table h(moto, departamentos) 'horas de mano de obra que necesita cada modelo en los distintos departamentos'
-  27          motor pintura montaje calidad
-  28  125bi    6      9       12      5
-  29  125m     4      8       10      4
-  30  50bi     2      5       8       2
-  31  50m      1      4       7       1;
-  32   
-  33  Parameters
-  34      t(departamentos) 'trabajadores por departamento'
-  35          / motor   17
-  36            pintura 19
-  37            montaje 8
-  38            calidad 16/
-  39   
-  40      b(moto) 'beneficio de cada uno de los modelos'
-  41          / 125bi 1070
-  42            125m  920
-  43            50bi  860
-  44            50m   650/;
-  45   
-  46  Variables
-  47      cantidad(moto) 'motos producidas de cada modelo'
-  48      be 'beneficio obtenido'
-  49   
-  50  Positive Variables cantidad;
-  51   
-  52  Equations
-  53      benef 'calculo del beneficio'
-  54      manoObra(departamentos) 'limite en el uso de cada recurso';
-  55   
-  56  benef.. be =e= sum(moto, b(moto)*cantidad(moto));
-  57  manoObra(departamentos).. sum(moto, h(moto, departamentos)*cantidad(moto)) =l= t(departamentos);
-  58   
-  59  Model aquaScooter / all /;
-  60   
-  61  OPTION LP=CPLEX;
-  62   
-  63  aquaScooter.OPTFILE=1;
-  64   
-  65  * porque maximizig be
-  66  solve aquaScooter using lp maximizing be;
+       Si el margen de beneficio de cada uno de los modelos es de 1070, 920, 860 y 650 euros, respectivamente, crear un modelo
+       de optimización lineal que permita encontrar la combinación de motos naúticas a producir para el que el beneficio sea máximo.
+  22   
+  23   Sets
+  24       moto modelos de las motos nauticas / 125bi, 125m, 50bi, 50m /
+  25       departamentos planta estructurada en 4 departamentos / motor, pintura, montaje, calidad /;
+  26   
+  27   Table h(moto, departamentos) 'horas de mano de obra que necesita cada modelo en los distintos departamentos'
+  28           motor pintura montaje calidad
+  29   125bi    6      9       12      5
+  30   125m     4      8       10      4
+  31   50bi     2      5       8       2
+  32   50m      1      4       7       1;
+  33   
+  34   Parameters
+  35       t(departamentos) 'trabajadores por departamento'
+  36           / motor   17
+  37             pintura 19
+  38             montaje 8
+  39             calidad 16/
+  40   
+  41       b(moto) 'beneficio de cada uno de los modelos'
+  42           / 125bi 1070
+  43             125m  920
+  44             50bi  860
+  45             50m   650/;
+  46   
+  47   Variables
+  48       cantidad(moto) 'motos producidas de cada modelo'
+  49       be 'beneficio obtenido'
+  50   
+  51   Positive Variables cantidad;
+  52   
+  53   Equations
+  54       benef 'calculo del beneficio'
+  55       manoObra(departamentos) 'limite en el uso de cada recurso';
+  56   
+  57   benef.. be =e= sum(moto, b(moto)*cantidad(moto));
+  58   manoObra(departamentos).. sum(moto, h(moto, departamentos)*cantidad(moto)) =l= t(departamentos) * 8;
+  59   
+  60   Model aquaScooter / all /;
+  61   
+  62   OPTION LP=CPLEX;
+  63   
+  64   aquaScooter.OPTFILE=1;
+  65   
+  66  * porque maximizig be
+  67   solve aquaScooter using lp maximizing be;
 
 
 COMPILATION TIME     =        0.001 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 2
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 3
 Problema de la Empresa de Aqua Scooter
-Equation Listing    SOLVE aquaScooter Using LP From line 66
+Equation Listing    SOLVE aquaScooter Using LP From line 67
 
 
 ---- benef  =E=  calculo del beneficio
@@ -81,17 +87,17 @@ benef..  - 1070*cantidad(125bi) - 920*cantidad(125m) - 860*cantidad(50bi) - 650*
 
 ---- manoObra  =L=  limite en el uso de cada recurso
 
-manoObra(motor)..  6*cantidad(125bi) + 4*cantidad(125m) + 2*cantidad(50bi) + cantidad(50m) =L= 17 ; (LHS = 0)
+manoObra(motor)..  6*cantidad(125bi) + 4*cantidad(125m) + 2*cantidad(50bi) + cantidad(50m) =L= 136 ; (LHS = 0)
      
-manoObra(pintura)..  9*cantidad(125bi) + 8*cantidad(125m) + 5*cantidad(50bi) + 4*cantidad(50m) =L= 19 ; (LHS = 0)
+manoObra(pintura)..  9*cantidad(125bi) + 8*cantidad(125m) + 5*cantidad(50bi) + 4*cantidad(50m) =L= 152 ; (LHS = 0)
      
-manoObra(montaje)..  12*cantidad(125bi) + 10*cantidad(125m) + 8*cantidad(50bi) + 7*cantidad(50m) =L= 8 ; (LHS = 0)
+manoObra(montaje)..  12*cantidad(125bi) + 10*cantidad(125m) + 8*cantidad(50bi) + 7*cantidad(50m) =L= 64 ; (LHS = 0)
      
 REMAINING ENTRY SKIPPED
 
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 3
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 4
 Problema de la Empresa de Aqua Scooter
-Column Listing      SOLVE aquaScooter Using LP From line 66
+Column Listing      SOLVE aquaScooter Using LP From line 67
 
 
 ---- cantidad  motos producidas de cada modelo
@@ -128,20 +134,20 @@ be
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       benef
 
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 4
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 5
 Problema de la Empresa de Aqua Scooter
-Range Statistics    SOLVE aquaScooter Using LP From line 66
+Range Statistics    SOLVE aquaScooter Using LP From line 67
 
 
 RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
 
-RHS       [min, max] : [ 8.000E+00, 1.900E+01] - Zero values observed as well
+RHS       [min, max] : [ 6.400E+01, 1.520E+02] - Zero values observed as well
 Bound     [min, max] : [        NA,        NA] - Zero values observed as well
 Matrix    [min, max] : [ 1.000E+00, 1.070E+03]
 
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 5
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 6
 Problema de la Empresa de Aqua Scooter
-Model Statistics    SOLVE aquaScooter Using LP From line 66
+Model Statistics    SOLVE aquaScooter Using LP From line 67
 
 
 MODEL STATISTICS
@@ -151,23 +157,23 @@ BLOCKS OF VARIABLES           2     SINGLE VARIABLES            5
 NON ZERO ELEMENTS            21
 
 
-GENERATION TIME      =        0.002 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 13:39:35 Page 6
+GENERATION TIME      =        0.001 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 7
 Problema de la Empresa de Aqua Scooter
-Solution Report     SOLVE aquaScooter Using LP From line 66
+Solution Report     SOLVE aquaScooter Using LP From line 67
 
 
                S O L V E      S U M M A R Y
 
      MODEL   aquaScooter         OBJECTIVE  be
      TYPE    LP                  DIRECTION  MAXIMIZE
-     SOLVER  CPLEX               FROM LINE  66
+     SOLVER  CPLEX               FROM LINE  67
 
 **** SOLVER STATUS     1 Normal Completion
 **** MODEL STATUS      1 Optimal
-**** OBJECTIVE VALUE              860.0000
+**** OBJECTIVE VALUE             6880.0000
 
- RESOURCE USAGE, LIMIT          0.005 10000000000.000
+ RESOURCE USAGE, LIMIT          0.006 10000000000.000
  ITERATION COUNT, LIMIT         1    2147483647
 --- *** This solver runs with a demo license. No commercial use.
 
@@ -186,7 +192,7 @@ Solution Report     SOLVE aquaScooter Using LP From line 66
 
 
 Optimal solution found
-Objective:          860.000000
+Objective:         6880.000000
 
 
                            LOWER          LEVEL          UPPER         MARGINAL
@@ -199,10 +205,10 @@ Objective:          860.000000
 
                LOWER          LEVEL          UPPER         MARGINAL
 
-motor          -INF            2.0000        17.0000          .          
-pintura        -INF            5.0000        19.0000          .          
-montaje        -INF            8.0000         8.0000       107.5000      
-calidad        -INF            2.0000        16.0000          .          
+motor          -INF           16.0000       136.0000          .          
+pintura        -INF           40.0000       152.0000          .          
+montaje        -INF           64.0000        64.0000       107.5000      
+calidad        -INF           16.0000       128.0000          .          
 
 ---- VAR cantidad  motos producidas de cada modelo
 
@@ -210,12 +216,12 @@ calidad        -INF            2.0000        16.0000          .
 
 125bi          .              .            +INF         -220.0000      
 125m           .              .            +INF         -155.0000      
-50bi           .             1.0000        +INF             .          
+50bi           .             8.0000        +INF             .          
 50m            .              .            +INF         -102.5000      
 
                            LOWER          LEVEL          UPPER         MARGINAL
 
----- VAR be                -INF          860.0000        +INF             .          
+---- VAR be                -INF         6880.0000        +INF             .          
 
   be  beneficio obtenido
 
