@@ -1,0 +1,106 @@
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/20/22 12:33:13 Page 1
+Problema de la Fabrica de Piensos
+C o m p i l a t i o n
+
+
+   2   
+      Problema evaluable ejercicio 2
+   6   
+   7  Sets
+   8      meses meses en los que se realizan pedidos / febrero, marzo, abril /;
+   9   
+  10  Parameters
+  11      p(meses) 'pedidos de cada mes'
+  12           / febrero  3800
+  13             marzo    3500
+  14             abril    4400/
+  15   
+  16      d(meses) 'días de producción'
+  17          /  febrero  20
+  18             marzo    23
+  19             abril    22/
+  20   
+  21      c(meses) 'coste de producción en cada mes'
+  22          / febrero   59
+  23            marzo     63
+  24            abril     73/;
+  25   
+  26  Scalar
+  27      produccion 'capacidad de producción al día' / 160 /
+  28      inventario_ene 'inventario a final de enero' / 110 /
+  29      inventario_lim 'capacidad de inventario limite' / 1100 /
+  30      inventario_abril_min 'minimo de inventario a mantener en el mes de abril' / 120 /
+  31      coste_inventario 'coste de mantener el inventario' / 4 /
+  32      beneficio_venta 'ingreso neto por venta por cada tonelada' / 73 /;
+  33   
+  34  Variables
+  35      lim_ventas
+  36      lim_produccion
+  37      lim_inventario
+  38      inventario_feb
+  39      inventario_mar
+  40      inventario_abr
+  41      lim_abril
+  42      z;
+  43  Positive variables lim_ventas, lim_produccion, inventario_feb, inventario_mar, inventario_abr;
+  44   
+  45  Equations
+  46      limite_ventas 'restricción del límite de ventas para cada mes',
+  47      limite_produccion 'restricción de producción al día para cada mes',
+  48      calc_inventario_feb 'calcula el inventario para final del mes de febrero',
+  49      calc_inventario_mar 'calcula el inventario para final del mes de marzo',
+  50      calc_inventario_abr 'calcula el inventario para final del mes de abril',
+  51      limite_inventario 'restriccion del límite de inventario para cada mes',
+  52      min_inventario_abril 'restriccion del límite de inventario para el final del mes de abril',
+  53      objetivo;
+  54   
+  55  limite_ventas..     lim_ventas =l= p(meses);
+****                                            $149
+**** 149  Uncontrolled set entered as constant
+  56  limite_produccion.. lim_produccion =l= d(meses) * produccion;
+****                                                $149
+**** 149  Uncontrolled set entered as constant
+  57  calc_inventario_feb..   inventario_feb =e= limite_produccion(0) + inventario_ene - limite_ventas(0);
+****                                                             $143,145                            $143,145
+**** 143  A suffix is missing
+**** 145  Set identifier or quoted element expected
+  58  calc_inventario_mar..   inventario_mar =e= limite_produccion(1) + inventario_feb - limite_ventas(1);
+****                                                             $143,145                            $143,145
+**** 143  A suffix is missing
+**** 145  Set identifier or quoted element expected
+  59  calc_inventario_abr..   inventario_abr =e= limite_produccion(2) + inventario_mar - limite_ventas(2);
+****                                                             $143,145                            $143,145
+**** 143  A suffix is missing
+**** 145  Set identifier or quoted element expected
+  60  limite_inventario..     lim_inventario =l= inventario_lim;
+  61  min_inventario_abril..  lim_abril   =g= inventario_abril_min;
+  62  *necesito saber como se suman todos los limites de ventas
+  63  objetivo..      z =e= beneficio_venta * limite_ventas - sum(meses, c(meses) * limite_produccion) - coste_inventario * (calc_inventario_feb + calc_inventario_mar + calc_inventario_abr);
+****                                                      $143                                      $143                                       $143                  $143                  $143
+**** 143  A suffix is missing
+  64   
+  65  Model fabrica_piensos /all/;
+  66   
+  67  OPTION LP=CPLEX;
+  68  fabrica_piensos.OPTFILE=1;
+  69   
+  70  solve fabrica_piensos using lp maximizing z;
+****                                             $257
+**** 257  Solve statement not checked because of previous errors
+
+**** 20 ERROR(S)   0 WARNING(S)
+
+
+COMPILATION TIME     =        0.003 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+
+
+USER: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
+      Universidad Complutense de Madrid, Spain                 DL073690
+
+
+**** FILE SUMMARY
+
+Input      /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/fabrica_piensos.gms
+Output     /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/fabrica_piensos.lst
+
+**** USER ERROR(S) ENCOUNTERED

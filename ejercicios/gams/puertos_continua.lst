@@ -1,0 +1,425 @@
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/28/22 01:08:53 Page 1
+Problema de distribución de mercancias desde Africa hasta Europa
+C o m p i l a t i o n
+
+
+      Hoja 3 problemas de MOG.
+      Dualidad y Análisis de Sensibilidad con GAMS.
+       
+      Una compañía tiene cuatro factorías en el norte de
+      Marruecos que fabrican el mismo producto. Para su distribución en
+      Europa, la compañía cuenta con tres centros de distribución, en
+      Zaragoza, Lyon y Burdeos. Para realizar el transporte, la compañía
+      puede llevar la mercancía desde las cuatro factorías hasta tres
+      puertos situados en el norte de Africa. Una vez cargada la mercancía
+      en un puerto, puede trasladarse por vía marítima hasta los puertos
+      de Barcelona o Génova y, desde el puerto de llegada, transportarlo
+      por carretera a los centros de distribución.
+       
+      unidades: toneladas
+  18   
+  19  Sets
+  20     puertos_A africanos / 1*3 /
+  21     puertos_EU europeos / PB,PG /
+  22     fabricas_A 'fábricas africanas' /1*4/
+  23     centros_EU centros europeos /Z,B,L/;
+  24   
+  25  Parameters
+  26     cap_max_A(puertos_A) 'capacidad de carga en los puertos africanos'
+  27          /1 2000
+  28           2 2500
+  29           3 3000/
+  30     cap_max_EU(puertos_EU) 'capacidad de descarga en los puertos europeos'
+  31          /PB 3500
+  32           PG 4500/
+  33     produc(fabricas_A) 'producción en las fábricas africanas'
+  34          /1 1000
+  35           2 2000
+  36           3 3000
+  37           4 1000/
+  38     dem(centros_EU) 'demanda en los centros europeos'
+  39          /Z 1000
+  40           B 2000
+  41           L 4000/;
+  42   
+  43  Table ctr_a(fabricas_A,puertos_A) 'coste rutas terrestres africanas'
+  44      1   2  3
+  45  1   9   8  2
+  46  2   6   6  9
+  47  3   9   7  7
+  48  4   6   6  8;
+  49   
+  50  Table ctr_m(puertos_A,puertos_EU) 'coste rutas marítimas'
+  51      PB  PG
+  52  1    5   3
+  53  2    3   5
+  54  3    5   8;
+  55   
+  56  Table ctr_eu(puertos_EU,centros_EU) 'coste rutas terrestres europeas'
+  57       Z  B  L
+  58  PB   5  7  9
+  59  PG   9  6  3;
+  60   
+  61   
+  62  Variables
+  63     ruta_tA(fabricas_A,puertos_A) 'toneladas desde cada fábrica africana a cada puerto africano'
+  64     ruta_m(puertos_A,puertos_EU) 'toneladas desde cada puerto africano a cada puerto europeo'
+  65     ruta_tEU(puertos_EU,centros_EU) 'toneladas desde cada puerto europeo a cada centro europeo'
+  66     z      'coste total de la distribución de mercancías';
+  67   
+  68  Positive Variables ruta_tA(fabricas_A,puertos_A),ruta_m(puertos_A,puertos_EU),ruta_tEU;
+  69   
+  70  Equations
+  71     coste      'función objetivo'
+  72     suministro(fabricas_A) 'mercancías enviadas desde cada fábrica en Africa'
+  73     demanda(centros_EU) 'demanda de mercancía en cada centro de Europa'
+  74     capacidad_PA(puertos_A) 'límite de capacida máxima de carga en los puertos africanos'
+  75     capacidad_PEU(puertos_EU) 'límite de capacida máxima de descarga en los puertos europeos'
+  76     balance_PA(puertos_A) 'conservación del flujo de mercancías en los puertos africanos'
+  77     balance_PEU(puertos_EU) 'conservación del flujo de mercancías en los puertos europeos';
+  78   
+  79  coste..      z =e= sum((fabricas_A,puertos_A), ctr_a(fabricas_A,puertos_A)*ruta_tA(fabricas_A,puertos_A))+
+  80                     sum((puertos_A,puertos_EU), ctr_m(puertos_A,puertos_EU)*ruta_m(puertos_A,puertos_EU))+
+  81                     sum((puertos_EU,centros_EU), ctr_eu(puertos_EU,centros_EU)*ruta_tEU(puertos_EU,centros_EU));
+  82   
+  83  suministro(fabricas_A).. sum(puertos_A, ruta_tA(fabricas_A,puertos_A)) =l= produc(fabricas_A);
+  84  demanda(centros_EU)..    sum(puertos_EU, ruta_tEU(puertos_EU,centros_EU)) =g= dem(centros_EU);
+  85   
+  86  capacidad_PA(puertos_A).. sum(fabricas_A,ruta_tA(fabricas_A,puertos_A))=l=cap_max_A(puertos_A);
+  87  capacidad_PEU(puertos_EU).. sum(centros_EU,ruta_tEU(puertos_EU,centros_EU))=l=cap_max_EU(puertos_EU);
+  88   
+  89  balance_PA(puertos_A)..    sum(fabricas_A,ruta_tA(fabricas_A,puertos_A))=e=sum(puertos_EU,ruta_m(puertos_A,puertos_EU));
+  90  balance_PEU(puertos_EU)..  sum(puertos_A,ruta_m(puertos_A,puertos_EU))=e=sum(centros_EU,ruta_tEU(puertos_EU,centros_EU));
+  91   
+  92   
+  93  Model TransMerc / all /;
+  94   
+  95  OPTION LP=CPLEX;
+  96   
+  97  TransMerc.OPTFILE=1;
+  98   
+  99  solve TransMerc using lp minimizing z;
+ 100   
+
+
+COMPILATION TIME     =        0.001 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/28/22 01:08:53 Page 2
+Problema de distribución de mercancias desde Africa hasta Europa
+Equation Listing    SOLVE TransMerc Using LP From line 99
+
+
+---- coste  =E=  función objetivo
+
+coste..  - 9*ruta_tA(1,1) - 8*ruta_tA(1,2) - 2*ruta_tA(1,3) - 6*ruta_tA(2,1) - 6*ruta_tA(2,2) - 9*ruta_tA(2,3) - 9*ruta_tA(3,1) - 7*ruta_tA(3,2) - 7*ruta_tA(3,3) - 6*ruta_tA(4,1) - 6*ruta_tA(4,2) - 8*ruta_tA(4,3) - 5*ruta_m(1,PB) - 3*ruta_m(1,PG) - 3*ruta_m(2,PB) - 5*ruta_m(2,PG) - 5*ruta_m(3,PB) - 8*ruta_m(3,PG) - 5*ruta_tEU(PB,Z) - 7*ruta_tEU(PB,B) - 9*ruta_tEU(PB,L) - 9*ruta_tEU(PG,Z) - 6*ruta_tEU(PG,B) - 3*ruta_tEU(PG,L) + z =E= 0 ; (LHS = 0)
+     
+
+---- suministro  =L=  mercancías enviadas desde cada fábrica en Africa
+
+suministro(1)..  ruta_tA(1,1) + ruta_tA(1,2) + ruta_tA(1,3) =L= 1000 ; (LHS = 0)
+     
+suministro(2)..  ruta_tA(2,1) + ruta_tA(2,2) + ruta_tA(2,3) =L= 2000 ; (LHS = 0)
+     
+suministro(3)..  ruta_tA(3,1) + ruta_tA(3,2) + ruta_tA(3,3) =L= 3000 ; (LHS = 0)
+     
+REMAINING ENTRY SKIPPED
+
+
+---- demanda  =G=  demanda de mercancía en cada centro de Europa
+
+demanda(Z)..  ruta_tEU(PB,Z) + ruta_tEU(PG,Z) =G= 1000 ; (LHS = 0, INFES = 1000 ****)
+     
+demanda(B)..  ruta_tEU(PB,B) + ruta_tEU(PG,B) =G= 2000 ; (LHS = 0, INFES = 2000 ****)
+     
+demanda(L)..  ruta_tEU(PB,L) + ruta_tEU(PG,L) =G= 4000 ; (LHS = 0, INFES = 4000 ****)
+     
+
+---- capacidad_PA  =L=  límite de capacida máxima de carga en los puertos africanos
+
+capacidad_PA(1)..  ruta_tA(1,1) + ruta_tA(2,1) + ruta_tA(3,1) + ruta_tA(4,1) =L= 2000 ; (LHS = 0)
+     
+capacidad_PA(2)..  ruta_tA(1,2) + ruta_tA(2,2) + ruta_tA(3,2) + ruta_tA(4,2) =L= 2500 ; (LHS = 0)
+     
+capacidad_PA(3)..  ruta_tA(1,3) + ruta_tA(2,3) + ruta_tA(3,3) + ruta_tA(4,3) =L= 3000 ; (LHS = 0)
+     
+
+---- capacidad_PEU  =L=  límite de capacida máxima de descarga en los puertos europeos
+
+capacidad_PEU(PB)..  ruta_tEU(PB,Z) + ruta_tEU(PB,B) + ruta_tEU(PB,L) =L= 3500 ; (LHS = 0)
+     
+capacidad_PEU(PG)..  ruta_tEU(PG,Z) + ruta_tEU(PG,B) + ruta_tEU(PG,L) =L= 4500 ; (LHS = 0)
+     
+
+---- balance_PA  =E=  conservación del flujo de mercancías en los puertos africanos
+
+balance_PA(1)..  ruta_tA(1,1) + ruta_tA(2,1) + ruta_tA(3,1) + ruta_tA(4,1) - ruta_m(1,PB) - ruta_m(1,PG) =E= 0 ; (LHS = 0)
+     
+balance_PA(2)..  ruta_tA(1,2) + ruta_tA(2,2) + ruta_tA(3,2) + ruta_tA(4,2) - ruta_m(2,PB) - ruta_m(2,PG) =E= 0 ; (LHS = 0)
+     
+balance_PA(3)..  ruta_tA(1,3) + ruta_tA(2,3) + ruta_tA(3,3) + ruta_tA(4,3) - ruta_m(3,PB) - ruta_m(3,PG) =E= 0 ; (LHS = 0)
+     
+
+---- balance_PEU  =E=  conservación del flujo de mercancías en los puertos europeos
+
+balance_PEU(PB)..  ruta_m(1,PB) + ruta_m(2,PB) + ruta_m(3,PB) - ruta_tEU(PB,Z) - ruta_tEU(PB,B) - ruta_tEU(PB,L) =E= 0 ; (LHS = 0)
+     
+balance_PEU(PG)..  ruta_m(1,PG) + ruta_m(2,PG) + ruta_m(3,PG) - ruta_tEU(PG,Z) - ruta_tEU(PG,B) - ruta_tEU(PG,L) =E= 0 ; (LHS = 0)
+     
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/28/22 01:08:53 Page 3
+Problema de distribución de mercancias desde Africa hasta Europa
+Column Listing      SOLVE TransMerc Using LP From line 99
+
+
+---- ruta_tA  toneladas desde cada fábrica africana a cada puerto africano
+
+ruta_tA(1,1)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -9       coste
+        1       suministro(1)
+        1       capacidad_PA(1)
+        1       balance_PA(1)
+
+ruta_tA(1,2)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -8       coste
+        1       suministro(1)
+        1       capacidad_PA(2)
+        1       balance_PA(2)
+
+ruta_tA(1,3)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -2       coste
+        1       suministro(1)
+        1       capacidad_PA(3)
+        1       balance_PA(3)
+
+REMAINING 9 ENTRIES SKIPPED
+
+---- ruta_m  toneladas desde cada puerto africano a cada puerto europeo
+
+ruta_m(1,PB)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -5       coste
+       -1       balance_PA(1)
+        1       balance_PEU(PB)
+
+ruta_m(1,PG)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -3       coste
+       -1       balance_PA(1)
+        1       balance_PEU(PG)
+
+ruta_m(2,PB)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -3       coste
+       -1       balance_PA(2)
+        1       balance_PEU(PB)
+
+REMAINING 3 ENTRIES SKIPPED
+
+---- ruta_tEU  toneladas desde cada puerto europeo a cada centro europeo
+
+ruta_tEU(PB,Z)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -5       coste
+        1       demanda(Z)
+        1       capacidad_PEU(PB)
+       -1       balance_PEU(PB)
+
+ruta_tEU(PB,B)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -7       coste
+        1       demanda(B)
+        1       capacidad_PEU(PB)
+       -1       balance_PEU(PB)
+
+ruta_tEU(PB,L)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -9       coste
+        1       demanda(L)
+        1       capacidad_PEU(PB)
+       -1       balance_PEU(PB)
+
+REMAINING 3 ENTRIES SKIPPED
+
+---- z  coste total de la distribución de mercancías
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       coste
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/28/22 01:08:53 Page 4
+Problema de distribución de mercancias desde Africa hasta Europa
+Range Statistics    SOLVE TransMerc Using LP From line 99
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+03, 4.500E+03] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 9.000E+00]
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/28/22 01:08:53 Page 5
+Problema de distribución de mercancias desde Africa hasta Europa
+Model Statistics    SOLVE TransMerc Using LP From line 99
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           7     SINGLE EQUATIONS           18
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           25
+NON ZERO ELEMENTS            91
+
+
+GENERATION TIME      =        0.008 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/28/22 01:08:53 Page 6
+Problema de distribución de mercancias desde Africa hasta Europa
+Solution Report     SOLVE TransMerc Using LP From line 99
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   TransMerc           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  99
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE           102000.0000
+
+ RESOURCE USAGE, LIMIT          0.031 10000000000.000
+ ITERATION COUNT, LIMIT        15    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+
+*** Error Cannot open parameter file "/home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/cplex.opt"
+*** Error Error code = 2; No such file or directory
+
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.01sec (det. 0.05 ticks)
+
+
+Optimal solution found
+Objective:       102000.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU coste               .              .              .             1.0000      
+
+  coste  función objetivo
+
+---- EQU suministro  mercancías enviadas desde cada fábrica en Africa
+
+         LOWER          LEVEL          UPPER         MARGINAL
+
+1        -INF         1000.0000      1000.0000        -5.0000      
+2        -INF         2000.0000      2000.0000        -1.0000      
+3        -INF         3000.0000      3000.0000          .          
+4        -INF         1000.0000      1000.0000        -1.0000      
+
+---- EQU demanda  demanda de mercancía en cada centro de Europa
+
+         LOWER          LEVEL          UPPER         MARGINAL
+
+Z      1000.0000      1000.0000        +INF           17.0000      
+B      2000.0000      2000.0000        +INF           19.0000      
+L      4000.0000      4000.0000        +INF           17.0000      
+
+---- EQU capacidad_PA  límite de capacida máxima de carga en los puertos africanos
+
+         LOWER          LEVEL          UPPER         MARGINAL
+
+1        -INF         2000.0000      2000.0000        -4.0000      
+2        -INF         2500.0000      2500.0000        -2.0000      
+3        -INF         2500.0000      3000.0000          .          
+
+---- EQU capacidad_PEU  límite de capacida máxima de descarga en los puertos europeos
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+PB        -INF         3000.0000      3500.0000          .          
+PG        -INF         4000.0000      4500.0000          .          
+
+---- EQU balance_PA  conservación del flujo de mercancías en los puertos africanos
+
+         LOWER          LEVEL          UPPER         MARGINAL
+
+1          .              .              .            11.0000      
+2          .              .              .             9.0000      
+3          .              .              .             7.0000      
+
+---- EQU balance_PEU  conservación del flujo de mercancías en los puertos europeos
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+PB          .              .              .            12.0000      
+PG          .              .              .            14.0000      
+
+---- VAR ruta_tA  toneladas desde cada fábrica africana a cada puerto africano
+
+           LOWER          LEVEL          UPPER         MARGINAL
+
+1.1          .              .            +INF            7.0000      
+1.2          .              .            +INF            6.0000      
+1.3          .          1000.0000        +INF             .          
+2.1          .          1000.0000        +INF             .          
+2.2          .          1000.0000        +INF             .          
+2.3          .              .            +INF            3.0000      
+3.1          .              .            +INF            2.0000      
+3.2          .          1500.0000        +INF             .          
+3.3          .          1500.0000        +INF             .          
+4.1          .          1000.0000        +INF             .          
+4.2          .              .            +INF            EPS         
+4.3          .              .            +INF            2.0000      
+
+---- VAR ruta_m  toneladas desde cada puerto africano a cada puerto europeo
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.PB          .              .            +INF            4.0000      
+1.PG          .          2000.0000        +INF             .          
+2.PB          .           500.0000        +INF             .          
+2.PG          .          2000.0000        +INF             .          
+3.PB          .          2500.0000        +INF             .          
+3.PG          .              .            +INF            1.0000      
+
+---- VAR ruta_tEU  toneladas desde cada puerto europeo a cada centro europeo
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+PB.Z          .          1000.0000        +INF             .          
+PB.B          .          2000.0000        +INF             .          
+PB.L          .              .            +INF            4.0000      
+PG.Z          .              .            +INF            6.0000      
+PG.B          .              .            +INF            1.0000      
+PG.L          .          4000.0000        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF       102000.0000        +INF             .          
+
+  z  coste total de la distribución de mercancías
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+
+
+EXECUTION TIME       =        0.050 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
+
+
+USER: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
+      Universidad Complutense de Madrid, Spain                 DL073690
+
+
+**** FILE SUMMARY
+
+Input      /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/puertos_continua.gms
+Output     /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/puertos_continua.lst

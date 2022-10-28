@@ -1,0 +1,28 @@
+B 3 C o m p i l a t i o n
+B 108 Equation Listing    SOLVE TransMerc Using LP From line 99
+D 111 coste
+D 116 suministro
+D 127 demanda
+D 136 capacidad_PA
+D 145 capacidad_PEU
+D 152 balance_PA
+D 161 balance_PEU
+B 169 Column Listing      SOLVE TransMerc Using LP From line 99
+E 172 ruta_tA
+E 197 ruta_m
+E 219 ruta_tEU
+E 244 z
+B 252 Range Statistics    SOLVE TransMerc Using LP From line 99
+B 263 Model Statistics    SOLVE TransMerc Using LP From line 99
+B 276 Solution Report     SOLVE TransMerc Using LP From line 99
+F 313 coste
+F 317 suministro
+F 326 demanda
+F 334 capacidad_PA
+F 342 capacidad_PEU
+F 349 balance_PA
+F 357 balance_PEU
+G 364 ruta_tA
+G 381 ruta_m
+G 392 ruta_tEU
+G 405 z

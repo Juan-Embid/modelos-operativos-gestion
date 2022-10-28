@@ -1,10 +1,10 @@
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 1
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/20/22 11:13:11 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
 
    1   
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 2
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/20/22 11:13:11 Page 2
 Problema de la Empresa de Aqua Scooter
 C o m p i l a t i o n
 
@@ -75,7 +75,7 @@ C o m p i l a t i o n
 
 
 COMPILATION TIME     =        0.001 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 3
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/20/22 11:13:11 Page 3
 Problema de la Empresa de Aqua Scooter
 Equation Listing    SOLVE aquaScooter Using LP From line 67
 
@@ -95,7 +95,7 @@ manoObra(montaje)..  12*cantidad(125bi) + 10*cantidad(125m) + 8*cantidad(50bi) +
      
 REMAINING ENTRY SKIPPED
 
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 4
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/20/22 11:13:11 Page 4
 Problema de la Empresa de Aqua Scooter
 Column Listing      SOLVE aquaScooter Using LP From line 67
 
@@ -134,7 +134,7 @@ be
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       benef
 
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 5
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/20/22 11:13:11 Page 5
 Problema de la Empresa de Aqua Scooter
 Range Statistics    SOLVE aquaScooter Using LP From line 67
 
@@ -145,7 +145,7 @@ RHS       [min, max] : [ 6.400E+01, 1.520E+02] - Zero values observed as well
 Bound     [min, max] : [        NA,        NA] - Zero values observed as well
 Matrix    [min, max] : [ 1.000E+00, 1.070E+03]
 
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 6
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/20/22 11:13:11 Page 6
 Problema de la Empresa de Aqua Scooter
 Model Statistics    SOLVE aquaScooter Using LP From line 67
 
@@ -158,7 +158,7 @@ NON ZERO ELEMENTS            21
 
 
 GENERATION TIME      =        0.001 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
-GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/18/22 20:47:44 Page 7
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/20/22 11:13:11 Page 7
 Problema de la Empresa de Aqua Scooter
 Solution Report     SOLVE aquaScooter Using LP From line 67
 
@@ -231,7 +231,7 @@ calidad        -INF           16.0000       128.0000          .
                              0  UNBOUNDED
 
 
-EXECUTION TIME       =        0.014 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
+EXECUTION TIME       =        0.013 SECONDS      4 MB  40.2.0 6cf3fb9c LEX-LEG
 
 
 USER: GAMS Demo license for Juan Embid               G220915|0002CO-GEN

@@ -1,0 +1,54 @@
+B 3 C o m p i l a t i o n
+B 80 Equation Listing    SOLVE borrar Using LP From line 69
+D 83 lim_vf
+D 88 lim_vm
+D 93 lim_va
+D 98 lim_xf
+D 103 lim_xm
+D 108 lim_xa
+D 113 eq_if
+D 118 eq_im
+D 123 eq_ia
+D 128 lim_if
+D 133 lim_im
+D 138 lim_ia
+D 143 min_ia
+D 148 objetivo
+B 154 Column Listing      SOLVE borrar Using LP From line 69
+E 157 xf
+E 166 xm
+E 175 xa
+E 184 vf
+E 193 vm
+E 202 va
+E 211 ifebre
+E 221 im
+E 231 ia
+E 241 z
+B 249 Range Statistics    SOLVE borrar Using LP From line 69
+B 260 Model Statistics    SOLVE borrar Using LP From line 69
+B 273 Solution Report     SOLVE borrar Using LP From line 69
+F 310 lim_vf
+F 311 lim_vm
+F 312 lim_va
+F 313 lim_xf
+F 314 lim_xm
+F 315 lim_xa
+F 316 eq_if
+F 317 eq_im
+F 318 eq_ia
+F 319 lim_if
+F 320 lim_im
+F 321 lim_ia
+F 322 min_ia
+F 323 objetivo
+G 327 xf
+G 328 xm
+G 329 xa
+G 330 vf
+G 331 vm
+G 332 va
+G 333 ifebre
+G 334 im
+G 335 ia
+G 336 z

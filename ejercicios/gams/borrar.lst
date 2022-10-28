@@ -1,0 +1,354 @@
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/21/22 11:10:17 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Parameters
+   2      coste_f/59/
+   3      coste_m/63/
+   4      coste_a/73/
+   5      dias_f/20/
+   6      dias_m/23/
+   7      dias_a/22/
+   8      lim_f/3800/
+   9      lim_m/3500/
+  10      lim_a/4400/;
+  11   
+  12  Scalar
+  13      beneficio /73/
+  14      coste_inventario/4/
+  15      lim_inventario/1100/
+  16      inventario_enero/110/
+  17      prod_dia/160/
+  18      min_inventario_abril/120/;
+  19   
+  20  Variables
+  21      xf
+  22      xm
+  23      xa
+  24      vf
+  25      vm
+  26      va
+  27      ifebre
+  28      im
+  29      ia
+  30      z;
+  31  Positive variables xf, xm, xa, vf, vm, va, ifebre, im, ia;
+  32   
+  33  Equations
+  34      lim_vf
+  35      lim_vm
+  36      lim_va
+  37      lim_xf
+  38      lim_xm
+  39      lim_xa
+  40      eq_if
+  41      eq_im
+  42      eq_ia
+  43      lim_if
+  44      lim_im
+  45      lim_ia
+  46      min_ia
+  47      objetivo;
+  48   
+  49  lim_vf..        vf =l= lim_f;
+  50  lim_vm..        vm =l= lim_m;
+  51  lim_va..        va =l= lim_a;
+  52  lim_xf..        xf =l= dias_f * prod_dia;
+  53  lim_xm..        xm =l= dias_m * prod_dia;
+  54  lim_xa..        xa =l= dias_a * prod_dia;
+  55  eq_if..         ifebre =e= inventario_enero + xf - vf;
+  56  eq_im..         im =e= ifebre + xm - vm;
+  57  eq_ia..         ia =e= im + xa - va;
+  58  lim_if..        ifebre =l= lim_inventario;
+  59  lim_im..        im =l= lim_inventario;
+  60  lim_ia..        ia =l= lim_inventario;
+  61  min_ia..        ia =g= min_inventario_abril;
+  62  objetivo..      z =e= beneficio * (vf + vm + va) - (coste_f* xf + coste_m * xm + coste_a * xa) - coste_inventario * (ifebre + im + ia);
+  63   
+  64  Model borrar /all/;
+  65   
+  66  OPTION LP=CPLEX;
+  67  borrar.OPTFILE=1;
+  68   
+  69  solve borrar using lp maximizing z;
+
+
+COMPILATION TIME     =        0.001 SECONDS      2 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/21/22 11:10:17 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE borrar Using LP From line 69
+
+
+---- lim_vf  =L=  
+
+lim_vf..  vf =L= 3800 ; (LHS = 0)
+     
+
+---- lim_vm  =L=  
+
+lim_vm..  vm =L= 3500 ; (LHS = 0)
+     
+
+---- lim_va  =L=  
+
+lim_va..  va =L= 4400 ; (LHS = 0)
+     
+
+---- lim_xf  =L=  
+
+lim_xf..  xf =L= 3200 ; (LHS = 0)
+     
+
+---- lim_xm  =L=  
+
+lim_xm..  xm =L= 3680 ; (LHS = 0)
+     
+
+---- lim_xa  =L=  
+
+lim_xa..  xa =L= 3520 ; (LHS = 0)
+     
+
+---- eq_if  =E=  
+
+eq_if..  - xf + vf + ifebre =E= 110 ; (LHS = 0, INFES = 110 ****)
+     
+
+---- eq_im  =E=  
+
+eq_im..  - xm + vm - ifebre + im =E= 0 ; (LHS = 0)
+     
+
+---- eq_ia  =E=  
+
+eq_ia..  - xa + va - im + ia =E= 0 ; (LHS = 0)
+     
+
+---- lim_if  =L=  
+
+lim_if..  ifebre =L= 1100 ; (LHS = 0)
+     
+
+---- lim_im  =L=  
+
+lim_im..  im =L= 1100 ; (LHS = 0)
+     
+
+---- lim_ia  =L=  
+
+lim_ia..  ia =L= 1100 ; (LHS = 0)
+     
+
+---- min_ia  =G=  
+
+min_ia..  ia =G= 120 ; (LHS = 0, INFES = 120 ****)
+     
+
+---- objetivo  =E=  
+
+objetivo..  59*xf + 63*xm + 73*xa - 73*vf - 73*vm - 73*va + 4*ifebre + 4*im + 4*ia + z =E= 0 ; (LHS = 0)
+     
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/21/22 11:10:17 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE borrar Using LP From line 69
+
+
+---- xf  
+
+xf
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       lim_xf
+       -1       eq_if
+       59       objetivo
+
+
+---- xm  
+
+xm
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       lim_xm
+       -1       eq_im
+       63       objetivo
+
+
+---- xa  
+
+xa
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       lim_xa
+       -1       eq_ia
+       73       objetivo
+
+
+---- vf  
+
+vf
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       lim_vf
+        1       eq_if
+      -73       objetivo
+
+
+---- vm  
+
+vm
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       lim_vm
+        1       eq_im
+      -73       objetivo
+
+
+---- va  
+
+va
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       lim_va
+        1       eq_ia
+      -73       objetivo
+
+
+---- ifebre  
+
+ifebre
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       eq_if
+       -1       eq_im
+        1       lim_if
+        4       objetivo
+
+
+---- im  
+
+im
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       eq_im
+       -1       eq_ia
+        1       lim_im
+        4       objetivo
+
+
+---- ia  
+
+ia
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       eq_ia
+        1       lim_ia
+        1       min_ia
+        4       objetivo
+
+
+---- z  
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objetivo
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/21/22 11:10:17 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE borrar Using LP From line 69
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.100E+02, 4.400E+03] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 7.300E+01]
+
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/21/22 11:10:17 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE borrar Using LP From line 69
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS          14     SINGLE EQUATIONS           14
+BLOCKS OF VARIABLES          10     SINGLE VARIABLES           10
+NON ZERO ELEMENTS            31
+
+
+GENERATION TIME      =        0.001 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+GAMS 40.2.0  6cf3fb9c Sep 1, 2022           LEX-LEG x86 64bit/Linux - 10/21/22 11:10:17 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE borrar Using LP From line 69
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   borrar              OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MAXIMIZE
+     SOLVER  CPLEX               FROM LINE  69
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE            79670.0000
+
+ RESOURCE USAGE, LIMIT          0.006 10000000000.000
+ ITERATION COUNT, LIMIT         1    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+
+*** Error Cannot open parameter file "/home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/cplex.opt"
+*** Error Error code = 2; No such file or directory
+
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Optimal solution found
+Objective:        79670.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU lim_vf            -INF         3310.0000      3800.0000          .          
+---- EQU lim_vm            -INF         3500.0000      3500.0000         4.0000      
+---- EQU lim_va            -INF           60.0000      4400.0000          .          
+---- EQU lim_xf            -INF         3200.0000      3200.0000        14.0000      
+---- EQU lim_xm            -INF         3680.0000      3680.0000         6.0000      
+---- EQU lim_xa            -INF             .          3520.0000          .          
+---- EQU eq_if            110.0000       110.0000       110.0000        73.0000      
+---- EQU eq_im               .              .              .            69.0000      
+---- EQU eq_ia               .              .              .            73.0000      
+---- EQU lim_if            -INF             .          1100.0000          .          
+---- EQU lim_im            -INF          180.0000      1100.0000          .          
+---- EQU lim_ia            -INF          120.0000      1100.0000          .          
+---- EQU min_ia           120.0000       120.0000        +INF          -77.0000      
+---- EQU objetivo            .              .              .             1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR xf                  .          3200.0000        +INF             .          
+---- VAR xm                  .          3680.0000        +INF             .          
+---- VAR xa                  .              .            +INF            EPS         
+---- VAR vf                  .          3310.0000        +INF             .          
+---- VAR vm                  .          3500.0000        +INF             .          
+---- VAR va                  .            60.0000        +INF             .          
+---- VAR ifebre              .              .            +INF           -8.0000      
+---- VAR im                  .           180.0000        +INF             .          
+---- VAR ia                  .           120.0000        +INF             .          
+---- VAR z                 -INF        79670.0000        +INF             .          
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+
+
+EXECUTION TIME       =        0.014 SECONDS      3 MB  40.2.0 6cf3fb9c LEX-LEG
+
+
+USER: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
+      Universidad Complutense de Madrid, Spain                 DL073690
+
+
+**** FILE SUMMARY
+
+Input      /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/borrar.gms
+Output     /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/borrar.lst

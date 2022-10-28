@@ -1,8 +1,9 @@
---- Job aqua-scooter.gms Start 10/20/22 11:12:20 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
+
+--- Job borrar.gms Start 10/21/22 11:09:57 40.2.0 6cf3fb9c LEX-LEG x86 64bit/Linux
 --- Applying:
     /opt/GAMS/gams40.2_linux_x64_64_sfx/gmsprmun.txt
 --- GAMS Parameters defined
-    Input /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/aqua-scooter.gms
+    Input /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/borrar.gms
     PageSize 0
     ScrDir /home/embid/Desktop/class/mog/modelos-operativos-gestion/ejercicios/gams/225a/
     SysDir /opt/GAMS/gams40.2_linux_x64_64_sfx/
@@ -19,17 +20,17 @@ Licensee: GAMS Demo license for Juan Embid               G220915|0002CO-GEN
 Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
 GAMS 40.2.0   Copyright (C) 1987-2022 GAMS Development. All rights reserved
 --- Starting compilation
---- aqua-scooter.gms(67) 3 Mb
---- Starting execution: elapsed 0:00:00.020
---- aqua-scooter.gms(64) 4 Mb
---- Generating LP model aquaScooter
---- aqua-scooter.gms(67) 4 Mb
----   5 rows  5 columns  21 non-zeroes
+--- borrar.gms(69) 2 Mb
+--- Starting execution: elapsed 0:00:00.025
+--- borrar.gms(67) 3 Mb
+--- Generating LP model borrar
+--- borrar.gms(69) 3 Mb
+---   14 rows  10 columns  31 non-zeroes
 --- Range statistics (absolute non-zero finite values)
---- RHS       [min, max] : [ 1.280E+02, 2.400E+02] - Zero values observed as well
+--- RHS       [min, max] : [ 1.100E+02, 4.400E+03] - Zero values observed as well
 --- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
---- Matrix    [min, max] : [ 1.000E+00, 1.070E+03]
---- Executing CPLEX (Solvelink=2): elapsed 0:00:00.025
+--- Matrix    [min, max] : [ 1.000E+00, 7.300E+01]
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:00.034
 
 IBM ILOG CPLEX   40.2.0 6cf3fb9c Sep 1, 2022           LEG x86 64bit/Linux    
 
@@ -52,20 +53,20 @@ CPXPARAM_MIP_Display                             4
 CPXPARAM_MIP_Pool_Capacity                       0
 CPXPARAM_MIP_Tolerances_AbsMIPGap                0
 Tried aggregator 1 time.
-LP Presolve eliminated 0 rows and 1 columns.
-Reduced LP has 4 rows, 4 columns, and 16 nonzeros.
-Presolve time = 0.00 sec. (0.00 ticks)
+LP Presolve eliminated 12 rows and 6 columns.
+Reduced LP has 1 rows, 4 columns, and 4 nonzeros.
+Presolve time = 0.00 sec. (0.01 ticks)
 
 Iteration      Dual Objective            In Variable           Out Variable
-     1 sI            0.000000         cantidad(50bi)manoObra(montaje) slack
+     1           79670.000000                     im            eq_im artif
 
 --- LP status (1): optimal.
 --- Cplex Time: 0.01sec (det. 0.01 ticks)
 
 
 Optimal solution found
-Objective:        25800.000000
+Objective:        79670.000000
 
---- Reading solution for model aquaScooter
+--- Reading solution for model borrar
 *** Status: Normal completion
---- Job aqua-scooter.gms Stop 10/20/22 11:12:20 elapsed 0:00:00.083
+--- Job borrar.gms Stop 10/21/22 11:09:57 elapsed 0:00:00.118
